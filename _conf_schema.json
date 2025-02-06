@@ -1,0 +1,8 @@
+{
+    "enable_ct2i": {
+        "type": "bool",
+        "description": "是否应用定制化T2I",
+        "default": false,
+        "hint": "定制化T2I目前可去除生成图片的标题"
+    }
+}
