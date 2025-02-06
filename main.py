@@ -12,8 +12,8 @@ class CustomT2I(Star):
         super().__init__(context)
         self.config = config
         self.base_path = f"{current_directory}/astrbot/core/utils/t2i/template/base.html"
-        self.custom_path = f"{current_directory}/data/plugins/astrbot_plugin_customT2I/custom_base.html"
-        self.base_bak_path = f"{current_directory}/data/plugins/astrbot_plugin_customT2I/base.html"
+        self.custom_path = f"{current_directory}/data/plugins/astrbot_plugin_customt2i/custom_base.html"
+        self.base_bak_path = f"{current_directory}/data/plugins/astrbot_plugin_customt2i/base.html"
 
     def _replace_template(self, source_path: str, target_path: str, success_msg: str, error_msg: str) -> bool:
         """通用的模板替换方法"""
@@ -38,9 +38,9 @@ class CustomT2I(Star):
     def _get_current_template(self) -> str:
         """查看当前使用的模板"""
         if self.config.get("enable_ct2i", False):
-            return "默认模板"
-        else:
             return "自定义模版"
+        else:
+            return "默认模板"
 
     @command_group("ct2i")
     def ct2i(self):
