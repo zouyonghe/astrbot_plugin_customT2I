@@ -1,19 +1,19 @@
-import os
+import logging
 import shutil
 
 from astrbot.api.all import *
-import logging
 
 logger = logging.getLogger("astrbot")
+current_directory = os.getcwd()
 
 @register("Custom_T2I", "buding", "自定义T2I模板插件", "0.0.1")
 class CustomT2I(Star):
     def __init__(self, context: Context, config: dict):
         super().__init__(context)
         self.config = config
-        self.base_path = "astrbot/core/utils/t2i/template/base.html"
-        self.custom_path = "data/plugins/astrbot_plugin_customT2I/custom_base.html"
-        self.base_bak_path = "data/plugins/astrbot_plugin_customT2I/base.html"
+        self.base_path = f"{current_directory}/astrbot/core/utils/t2i/template/base.html"
+        self.custom_path = f"{current_directory}/data/plugins/astrbot_plugin_customT2I/custom_base.html"
+        self.base_bak_path = f"{current_directory}/data/plugins/astrbot_plugin_customT2I/base.html"
 
     def _replace_template(self, source_path: str, target_path: str, success_msg: str, error_msg: str) -> bool:
         """通用的模板替换方法"""
@@ -80,11 +80,6 @@ class CustomT2I(Star):
 
     @ct2i.command("status")
     async def get_current_status(self, event: AstrMessageEvent):
-
-        # 打印当前工作目录到日志
-        current_directory = os.getcwd()
-        logger.info(f"当前工作目录: {current_directory}")
-
 
         """查看当前使用的模板"""
         try:
