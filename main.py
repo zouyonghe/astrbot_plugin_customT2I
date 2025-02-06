@@ -47,7 +47,7 @@ class CustomT2I(Star):
         pass
 
     @ct2i.command("enable")
-    async def enable_custom_ct2i(self, event: AstrMessageEvent):
+    async def enable_custom_T2I(self, event: AstrMessageEvent):
         """使用自定义模板"""
         try:
             if self._switch_to_custom_template():
@@ -63,20 +63,20 @@ class CustomT2I(Star):
             yield event.plain_result("❌ 切换自定义模板失败，请检查配置")
 
     @ct2i.command("disable")
-    async def disable_custom_ct2i(self, event: AstrMessageEvent):
+    async def disable_custom_T2I(self, event: AstrMessageEvent):
         """恢复默认模板"""
         try:
             if self._restore_default_template():
-                self.config["enable_ct2i"] = True
-                yield event.plain_result("✅ 已切换到自定义模板")
+                self.config["enable_ct2i"] = False
+                yield event.plain_result("✅ 已恢复原始模板")
             else:
-                yield event.plain_result("❌ 切换自定义模板失败")
+                yield event.plain_result("❌ 恢复原始模板失败")
         except FileNotFoundError as e:
             logger.error(f"文件未找到: {e}")
             yield event.plain_result("❌ 文件未找到，请检查模板文件路径")
         except Exception as e:
             logger.error(f"未知错误: {e}")
-            yield event.plain_result("❌ 切换自定义模板失败，请检查配置")
+            yield event.plain_result("❌ 恢复原始模板失败，请检查配置")
 
     @ct2i.command("status")
     async def get_current_status(self, event: AstrMessageEvent):
