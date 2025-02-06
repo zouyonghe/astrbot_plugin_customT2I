@@ -80,6 +80,12 @@ class CustomT2I(Star):
 
     @ct2i.command("status")
     async def get_current_status(self, event: AstrMessageEvent):
+
+        # 打印当前工作目录到日志
+        current_directory = os.getcwd()
+        logger.info(f"当前工作目录: {current_directory}")
+
+
         """查看当前使用的模板"""
         try:
             current_template = self._get_current_template()
