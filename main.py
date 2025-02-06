@@ -96,7 +96,7 @@ class CustomT2I(Star):
             "🚀 **自定义模板插件帮助**\n"
             "1. `/ct2i enable` - 切换到自定义模板。\n"
             "2. `/ct2i disable` - 恢复默认模板。\n"
-            "3. `/ct2i status` - 查看当前使用的模板。\n\n"
+            "3. `/ct2i status` - 查看当前使用的模板。"
         )
         try:
             yield event.plain_result(help_message)
