@@ -1,6 +1,6 @@
 name: CustomT2I
 desc: 这是 AstrBot 的自定义 T2I 模板插件，支持切换和恢复模板。
 help: 输入 /ct2i 查看自定义模板帮助。
-version: v0.0.1
+version: v0.0.2
 author: buding
 repo: https://github.com/zouyonghe/astrbot_plugin_customT2I
