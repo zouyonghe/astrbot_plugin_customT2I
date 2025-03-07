@@ -6,32 +6,14 @@ from astrbot.api.all import *
 logger = logging.getLogger("astrbot")
 current_directory = os.getcwd()
 
-PLUGIN_CONFIG_PATH = "data/config/astrbot_plugin_customt2i_config.json"
-
-@register("Custom_T2I", "buding", "自定义T2I模板插件", "0.0.2")
+@register("Custom_T2I", "buding", "自定义T2I模板插件", "0.0.3")
 class CustomT2I(Star):
-    def __init__(self, context: Context, config: dict):
+    def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
         self.config = config
         self.base_path = f"{current_directory}/astrbot/core/utils/t2i/template/base.html"
         self.custom_path = f"{current_directory}/data/plugins/astrbot_plugin_customt2i/custom_base.html"
         self.base_bak_path = f"{current_directory}/data/plugins/astrbot_plugin_customt2i/base.html"
-
-    def save_plugin_config(self, file_path=PLUGIN_CONFIG_PATH):
-        """
-        保存插件配置到文件
-        Args:
-            file_path: 保存的配置文件路径
-        """
-        if not file_path:
-            logger.error("插件配置文件路径不存在，保存失败。")
-            return
-        try:
-            with open(file_path, "w", encoding="utf-8") as config_file:
-                json.dump(self.config, config_file, indent=2, ensure_ascii=False)
-            logger.info(f"插件配置已保存到文件: {file_path}")
-        except Exception as e:
-            logger.error(f"保存插件配置失败: {e}")
 
     def _replace_template(self, source_path: str, target_path: str, success_msg: str, error_msg: str) -> bool:
         """通用的模板替换方法"""
@@ -70,7 +52,7 @@ class CustomT2I(Star):
         try:
             if self._switch_to_custom_template():
                 self.config["enable_ct2i"] = True
-                self.save_plugin_config()
+                self.config.save_config()
                 yield event.plain_result("✅ 已切换到自定义模板")
             else:
                 yield event.plain_result("❌ 切换自定义模板失败")
@@ -87,7 +69,7 @@ class CustomT2I(Star):
         try:
             if self._restore_default_template():
                 self.config["enable_ct2i"] = False
-                self.save_plugin_config()
+                self.config.save_config()
                 yield event.plain_result("✅ 已恢复原始模板")
             else:
                 yield event.plain_result("❌ 恢复原始模板失败")
